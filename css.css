@@ -1,0 +1,217 @@
+/***************************
+ * Generalindades - coloreo las zonas
+***************************/
+header{
+	background-color: blue;
+	border-inline-start:  10px solid black;
+	padding-left: 2px;
+	margin-block-start: 0px;
+}
+nav{
+	background-color: grey;
+	border: 1px dotted black;
+}
+section{
+	background-color: red;
+	border: 1px solid black;
+}
+aside{
+	background-color: yellowgreen;
+	
+}
+footer{
+	background-color: brown;
+}
+
+/***************************
+ * <body> - grid displey
+***************************/
+body{
+	display: grid;
+
+
+	/*Para definir con áreas*/
+	/*Define el tamaño de las columnas y de las filas*/
+	grid-template-columns: 150px 500px;
+	grid-template-rows: 100px 2em 1000px;
+
+
+	/*Para definir sin áreas*/
+	/*Igual efecto que la anterior pero define nombre de lineas "grid line"*/
+	grid-template-columns: [x0] calc(max(25%, 150px)) [x1] calc(max(75%, 500px)) [x2];
+	grid-template-rows: [y0] 100px [y1] 2em [y2] 1000px [y3];
+
+	/*Espacios entre filas y columnas del grid - "gap"*/
+	/*afectan a toda la cuadricula*/
+	column-gap: 10px;
+	row-gap: 20px;
+
+}
+
+/*Define la posición que ocupara cada elemento dentro de la grilla
+Sin áreas*/
+
+body > header {
+
+  grid-column-start: x0;
+  grid-column-end: x2;
+
+  /* Equivalente a */
+  grid-column: x0/x2;
+
+}
+
+body > nav{
+	grid-column: x0/x2;
+	grid-row: y1 / y2;
+}
+
+body > aside{
+	grid-column: x0 / x1;
+	grid-row: y2 / y3;
+}
+
+body > section{
+	grid-column: x1 / x2;
+	grid-row: y2 / y3;
+}
+
+body > footer{
+	grid-column: x0 / x2;
+	grid-row: y3;
+}
+
+/*Otra forma de definir zonas es utilizando las áreas*/
+
+body{
+	grid-template-areas:	"head head"
+							"nav nav"
+							"menu main"
+							"foot foot";
+							/*  La palabra clave none: Indica que no se colocará ninguna celda en esta posición.
+    							Uno o más puntos (.): Indica que se colocará una celda vacía en esta posición.*/
+}
+/*OJO: Ten en cuenta añadir contenido de texto en cada celda del grid, para que Grid CSS detecte que esa celda no está vacía.*/
+
+/*aplicamos las areas a los elementos*/
+body > header {	
+	grid-area: head;
+}
+body > nav{
+	grid-area: nav;
+}
+body > aside{
+	grid-area: menu;
+}
+body > section{
+	grid-area: main;
+}
+body > footer{
+	grid-area: foot;
+}
+
+
+/***************************
+ * <nav> - flex displey
+***************************/
+
+#menuHor{
+	
+	
+	height: 2em;
+
+
+	display: flex;
+	flex-wrap: no-wrap;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+
+	column-gap: 5px;
+
+}
+.item{
+	background-color: yellowgreen;
+	width: auto;
+}
+.item:nth-child(4){
+	background-color: darkred;
+	align-self: flex-start;
+
+	flex-grow: 0; /*cero por defecto*/
+/*	display: flex;
+	justify-content: flex-end;
+*/
+}
+.item:nth-child(4) > a{
+	display: inline-block;
+}
+
+
+/*display stiky*/
+
+nav{
+	position: sticky;
+	top: 0;
+	z-index: 10;
+}
+
+footer{
+	position: sticky;
+	bottom: 0;
+}
+
+aside{
+	position: sticky;
+	top: 2em;
+}/*dificultades*/
+
+
+/***************************
+ * otras cosas
+***************************/
+
+#spiderman{
+	position: fixed;
+	top: 1em;
+	right: 0;
+	transform: rotate(0deg);
+	width: 10%;
+	height: 10%;
+	z-index: 20;
+	filter: drop-shadow(10px 10px 10px #fff);
+}
+
+#zap{
+	position: fixed;
+	bottom: 1em;
+	right: 0;
+	transform: rotate(0deg);
+	width: 10%;
+	height: 25%;
+	z-index: 20;
+	filter: drop-shadow(10px 10px 10px #00ff00);
+}
+
+
+
+/*Este ejemplo nos permite ver cual el la dimensión
+de la pagina segun el color en cuestion*/
+@media screen and (max-width: 640px) {
+  #menuHor {
+    background: blue;
+  }
+}
+
+@media screen and (min-width: 640px) and (max-width: 1280px) {
+  #menuHor {
+    background: red;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  #menuHor {
+    background: green;
+  }
+}
